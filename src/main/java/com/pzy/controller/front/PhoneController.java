@@ -66,6 +66,24 @@ public class PhoneController {
 		httpSession.setAttribute("user", userService.find(1l));
 		return "phone/index";
 	}
+	
+	@RequestMapping("remember")
+	public String remember(Model model,HttpSession httpSession) {
+		httpSession.setAttribute("user", userService.find(1l));
+		return "phone/remember";
+	}
+	@RequestMapping("review")
+	public String review(Model model,HttpSession httpSession) {
+		httpSession.setAttribute("user", userService.find(1l));
+		return "phone/review";
+	}
+	
+	@RequestMapping("translate")
+	public String translate(Model model,HttpSession httpSession) {
+		httpSession.setAttribute("user", userService.find(1l));
+		return "phone/translate";
+	}
+	
 	@RequestMapping("about")
 	public String about(Model model) {
 		return "phone/about";

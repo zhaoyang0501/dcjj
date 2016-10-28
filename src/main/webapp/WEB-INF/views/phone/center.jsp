@@ -31,37 +31,49 @@ function fun_goto(gotourl){
       <div class="page">
        <%@include file="./header.jsp" %>
        <div class="content">
-      
-        <div class="card facebook-card" style="margin: 0px">
-    <div class="card-header no-border">
-      <div class="facebook-name">欢迎您：${sessionScope.user.username }（${sessionScope.user.email}） </div>
-     
-    </div>
-    <div class="card-content" >
-    <img style="text-align: center;" src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="40%">
-    </div>
-    <div class="card-footer no-border">
-      <a href="#" class="link">本月出勤：15天</a>
-      <a href="#" class="link">年假：10天</a>
-      <a href="#" class="link">加班：3天</a>
-    </div>
+        <div class="card facebook-card" style="margin: 0px;">
+		    <div class="row">
+		      <div class="col-50"><img src="/dcjj/img/userhead.png" height="150px"></div>
+		      <div class="col-50" style="margin-top: 50px">${sessionScope.user.username }（${sessionScope.user.email}）</div>
+		    </div>
+		    
+		    <div class="card-footer no-border">
+		      <a href="#" class="link">坚持天数 ：10</a>|
+		      <a href="#" class="link">累计单词书：12</a>
+		    </div>
   </div>
        
 		  <div class="list-block">
 			    <ul>
+			      
+			      
+			      
+			       <li class="item-content item-link">
+			        <div class="item-media"><i class="icon icon-f7"></i></div>
+			        <div class="item-inner">
+			          <div class="item-title">胡惊涛</div>
+			          <div class="item-after"><a href="#"> 修改</a></div>
+			        </div>
+			      </li>
 			      <li class="item-content item-link">
 			        <div class="item-media"><i class="icon icon-f7"></i></div>
 			        <div class="item-inner">
-			          <div class="item-title">我的资料</div>
+			          <div class="item-title">1344545654</div>
+			          <div class="item-after"><a href="#"> 修改</a></div>
 			        </div>
 			      </li>
-			      <li class="item-content item-link" onclick="fun_goto('loginout')" >
+			      
+			       <li class="item-content item-link">
 			        <div class="item-media"><i class="icon icon-f7"></i></div>
 			        <div class="item-inner">
-			          <div class="item-title">注销</div>
+			          <div class="item-title">登录密码</div>
+			          <div class="item-after"><a href="#"> 设置</a></div>
 			        </div>
 			      </li>
 			    </ul>
+			     <div class="content-block">
+			      <p><a href="javascript:void(0)" onclick="fun_submit()" class="button button-fill button-danger">退出当前账户</a></p>
+			    </div>
 			  </div>
 		</div>
       </div>

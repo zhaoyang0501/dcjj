@@ -7,20 +7,28 @@
                   <span class="icon icon-left"></span>
                	   返回
               </a>
-              <h1 class="title">医患交流平台</h1>
+              <h1 class="title">英语单词记忆平台</h1>
           </header>
           <nav class="bar bar-tab">
               <a class="tab-item external " href="chart">
-                  <span class="icon icon-phone"></span>
-                  <span class="tab-label">医患交流</span>
+                  <span class="icon icon-edit"></span>
+                  <span class="tab-label">我的计划</span>
               </a>
-               <a class="tab-item external" href="discuss">
-                  <span class="icon icon-star"></span>
-                  <span class="tab-label">就医评价</span>
+               <a class="tab-item external" href="remenber">
+                  <span class="icon icon-cart"></span>
+                  <span class="tab-label">单词记忆</span>
               </a>
-              <a class="tab-item external" href="patient">
-                  <span class="icon icon-friends"></span>
-                  <span class="tab-label">我的患者</span>
+              <a class="tab-item external" href="review">
+                  <span class="icon icon-clock"></span>
+                  <span class="tab-label">单词复习</span>
+              </a>
+              <a class="tab-item external" href="translate">
+                  <span class="icon icon-search"></span>
+                  <span class="tab-label">单词查询</span>
+              </a>
+               <a class="tab-item external" href="translate">
+                  <span class="icon  icon-me"></span>
+                  <span class="tab-label">用户评测</span>
               </a>
               <a class="tab-item external" href="center">
                   <span class="icon icon-me"></span>
