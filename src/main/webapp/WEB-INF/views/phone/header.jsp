@@ -14,7 +14,7 @@
                   <span class="icon icon-edit"></span>
                   <span class="tab-label">我的计划</span>
               </a>
-               <a class="tab-item external" href="remenber">
+               <a class="tab-item external" href="remember">
                   <span class="icon icon-cart"></span>
                   <span class="tab-label">单词记忆</span>
               </a>

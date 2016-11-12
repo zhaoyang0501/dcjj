@@ -34,7 +34,7 @@ function fun_goto(gotourl){
         <div class="card facebook-card" style="margin: 0px;">
 		    <div class="row">
 		      <div class="col-50"><img src="/dcjj/img/userhead.png" height="150px"></div>
-		      <div class="col-50" style="margin-top: 50px">${sessionScope.user.username }（${sessionScope.user.email}）</div>
+		      <div class="col-50" style="margin-top: 50px">您好：${sessionScope.user.username }</div>
 		    </div>
 		    
 		    <div class="card-footer no-border">
@@ -51,14 +51,14 @@ function fun_goto(gotourl){
 			       <li class="item-content item-link">
 			        <div class="item-media"><i class="icon icon-f7"></i></div>
 			        <div class="item-inner">
-			          <div class="item-title">胡惊涛</div>
+			          <div class="item-title">${sessionScope.user.username }</div>
 			          <div class="item-after"><a href="#"> 修改</a></div>
 			        </div>
 			      </li>
 			      <li class="item-content item-link">
 			        <div class="item-media"><i class="icon icon-f7"></i></div>
 			        <div class="item-inner">
-			          <div class="item-title">1344545654</div>
+			          <div class="item-title">${sessionScope.user.tel }</div>
 			          <div class="item-after"><a href="#"> 修改</a></div>
 			        </div>
 			      </li>

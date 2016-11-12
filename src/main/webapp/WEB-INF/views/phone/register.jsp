@@ -31,28 +31,6 @@
     <form action="doregister" method="post">
       <ul>
         <!-- Text inputs -->
-        <li>
-          <div class="item-content">
-            <div class="item-media"><i class="icon icon-form-name"></i></div>
-            <div class="item-inner">
-              <div class="item-title label">姓名</div>
-              <div class="item-input">
-                <input name='username' type="text" placeholder="您的姓名">
-              </div>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="item-content">
-            <div class="item-media"><i class="icon icon-form-email"></i></div>
-            <div class="item-inner">
-              <div class="item-title label">E-mail</div>
-              <div class="item-input">
-                <input name='email' type="email" placeholder="电子邮箱">
-              </div>
-            </div>
-          </div>
-        </li>
          <li>
           <div class="item-content">
             <div class="item-media"><i class="icon "></i></div>
@@ -71,6 +49,18 @@
               <div class="item-title label">密码</div>
               <div class="item-input">
                 <input name='password' type="password" placeholder="至少8位的密码" class="">
+              </div>
+            </div>
+          </div>
+        </li>
+        
+         <li>
+          <div class="item-content">
+            <div class="item-media"><i class="icon icon-form-name"></i></div>
+            <div class="item-inner">
+              <div class="item-title label">姓名</div>
+              <div class="item-input">
+                <input name='username' type="text" placeholder="您的姓名">
               </div>
             </div>
           </div>

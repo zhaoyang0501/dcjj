@@ -12,10 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.pzy.entity.Question;
 import com.pzy.entity.User;
 import com.pzy.service.UserService;
+import com.pzy.service.WordService;
 /***
  * 前台，首页各种连接登陆等
  * @author qq:263608237
@@ -27,6 +30,9 @@ public class PhoneController {
 	
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private WordService wordService;
 
 	@InitBinder  
 	protected void initBinder(HttpServletRequest request,   ServletRequestDataBinder binder) throws Exception {   
@@ -50,7 +56,25 @@ public class PhoneController {
 	 */
 	@RequestMapping("remember")
 	public String remember(Model model,HttpSession httpSession) {
-		httpSession.setAttribute("user", userService.find(1l));
+		httpSession.setAttribute("index",1);
+		httpSession.setAttribute("rightcout",0);
+		httpSession.setAttribute("errorcout",0);
+		model.addAttribute("question", wordService.getQuestion());
+		return "phone/remember";
+	}
+	@RequestMapping("remember/{id}")
+	public String remember(Model model,@PathVariable Long id,String a,HttpSession httpSession) {
+		
+		Integer rightcout = (Integer)httpSession.getAttribute("rightcout");
+		Integer errorcout = (Integer)httpSession.getAttribute("errorcout");
+		Integer index = (Integer)httpSession.getAttribute("index");
+		httpSession.setAttribute("index", index+1);
+		Question question = wordService.getQuestion(id);
+		if(a.equals(question.getRightq())){
+			httpSession.setAttribute("index", rightcout+1);
+		}else{
+			httpSession.setAttribute("errorcout", errorcout+1);
+		}
 		return "phone/remember";
 	}
 	/***
@@ -77,6 +101,12 @@ public class PhoneController {
 		return "phone/translate";
 	}
 	
+	@RequestMapping("dotranslate")
+	public String dotranslate(String key,Model model) {
+		model.addAttribute("results",wordService.translate(key));
+		model.addAttribute("key",key);
+		return "phone/translate";
+	}
 	/**
 	 * 关于我们模块
 	 * @param model

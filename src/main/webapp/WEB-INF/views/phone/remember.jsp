@@ -29,35 +29,35 @@
         
         <div class="content">
    
-     <div class="content-block-title">第一题（总共20题）请选择 <span style="color: blue;"> apple</span>单词的正确翻译</div>
+     <div class="content-block-title">第一题（总共20题）请选择 <span style="color: blue;"> ${question.title }</span>单词的正确翻译</div>
   <div class="list-block">
     <ul>
-      <li class="item-content item-link">
+      <li class="item-content item-link" onclick="fun_setanswer('a')">
         <div class="item-media"><i class="icon icon-f7"></i></div>
         <div class="item-inner">
-          <div class="item-title">A香蕉</div>
+          <div class="item-title">A:${question.a }</div>
         </div>
       </li>
       
-       <li class="item-content item-link">
+       <li class="item-content item-link" onclick="fun_setanswer('b')">
         <div class="item-media"><i class="icon icon-f7"></i></div>
         <div class="item-inner">
-          <div class="item-title">B橘子</div>
+          <div class="item-title">B:${question.b }</div>
         </div>
       </li>
       
       
-       <li class="item-content item-link">
+       <li class="item-content item-link" onclick="fun_setanswer('c')">
         <div class="item-media"><i class="icon icon-f7"></i></div>
         <div class="item-inner">
-          <div class="item-title">C梨子</div>
+          <div class="item-title">C:${question.c }</div>
         </div>
       </li>
       
-       <li class="item-content item-link">
+       <li class="item-content item-link" onclick="fun_setanswer('d')">
         <div class="item-media"><i class="icon icon-f7"></i></div>
         <div class="item-inner">
-          <div class="item-title">D桃子</div>
+          <div class="item-title">D:${question.d }</div>
         </div>
       </li>
     </ul>
@@ -76,6 +76,10 @@
   </div>
   </form>
      <script>
+     
+     function fun_setanswer(q){
+    	 alert(q);
+     }
      function fun_submit(){
     	 $("form").submit();
      }

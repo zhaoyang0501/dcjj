@@ -30,12 +30,12 @@
 	src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
 </head>
 <body>
-	<form action="dologin" method="post">
 		<div class="page-group">
 			<div class="page">
 				<%@include file="./header.jsp"%>
 
 				<div class="content">
+					 <form action="dotranslate" method="post">
 					<div class="list-block">
 						<ul>
 							<!-- Text inputs -->
@@ -46,13 +46,13 @@
 									</div>
 									<div class="item-inner">
 										<div class="item-input">
-											<input type="text" placeholder="输入需要翻译的句子或者短语">
+											<input name='key' type="text" placeholder="输入需要翻译的句子或者短语">
 										</div>
 									</div>
 								</div>
 							</li>
 						</ul>
-						  <div class="content-block-title">翻译:<span style="color:blue;"> 地球   </span></div>
+						  <div class="content-block-title">翻译:<span style="color:blue;"> ${key }   </span></div>
 					</div>
 
 					<div class="content-block">
@@ -61,28 +61,17 @@
 								class="button button-fill button-success">查询</a>
 						</p>
 					</div>
+					</form>	
+						<c:forEach items="${results}" var="bean"   varStatus="status">
 						
-						
-						<div class="content-block-title">解释一</div>
+						<div class="content-block-title">解释${status.index+1}</div>
 						  <div class="card">
 						    <div class="card-content">
-						      <div class="card-content-inner">n. 地球；地表，陆地；土地，土壤；尘事，俗事；兽穴</div>
+						      <div class="card-content-inner">${bean }</div>
 						    </div>
 						  </div>
 						  
-						<div class="content-block-title">解释二</div>
-						  <div class="card">
-						    <div class="card-content">
-						      <div class="card-content-inner">vt. 把（电线）[电] 接地；盖（土）；追赶入洞穴</div>
-						    </div>
-						  </div>
-						  					
-						<div class="content-block-title">解释三</div>
-						  <div class="card">
-						    <div class="card-content">
-						      <div class="card-content-inner">vi. 躲进地洞</div>
-						    </div>
-						  </div>	
+						</c:forEach>
 				</div>
 				
 				
@@ -91,7 +80,6 @@
 			</div>
 		</div>
 		</div>
-	</form>
 	<script>
      function fun_submit(){
     	 $("form").submit();
