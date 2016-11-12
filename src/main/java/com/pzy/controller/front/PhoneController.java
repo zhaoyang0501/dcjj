@@ -1,22 +1,29 @@
 package com.pzy.controller.front;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pzy.entity.Question;
+import com.pzy.entity.Review;
 import com.pzy.entity.User;
+import com.pzy.service.PlanService;
+import com.pzy.service.ReviewWordService;
 import com.pzy.service.UserService;
 import com.pzy.service.WordService;
 /***
@@ -29,10 +36,16 @@ import com.pzy.service.WordService;
 public class PhoneController {
 	
 	@Autowired
+	private PlanService planService;
+	
+	@Autowired
 	private UserService userService;
 
 	@Autowired
 	private WordService wordService;
+	
+	@Autowired
+	private ReviewWordService reviewWordService;
 
 	@InitBinder  
 	protected void initBinder(HttpServletRequest request,   ServletRequestDataBinder binder) throws Exception {   
@@ -48,6 +61,32 @@ public class PhoneController {
 		httpSession.setAttribute("user", userService.find(1l));
 		return "phone/index";
 	}
+	
+	/***
+	 * 跳转到首页
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("plan")
+	public String plan(Model model,HttpSession httpSession) {
+		//httpSession.setAttribute("user", null);
+		User user = (User)httpSession.getAttribute("user");
+		if(user== null){
+			httpSession.removeAttribute("user");
+    		model.addAttribute("tip","请登录!");
+    		return "phone/login";
+		}
+		return "phone/plan";
+	}
+	@RequestMapping("saveplan")
+	public String saveplan(Model model,HttpSession httpSession,Integer day,Integer num) {
+		User user = (User)httpSession.getAttribute("user");
+		user.setDay(day);
+		user.setNum(num);
+		this.userService.save(user);
+		model.addAttribute("tip","设置成功!");
+		return "phone/plan";
+	}
 	/***
 	 * 单词记忆模块
 	 * @param model
@@ -56,6 +95,12 @@ public class PhoneController {
 	 */
 	@RequestMapping("remember")
 	public String remember(Model model,HttpSession httpSession) {
+		User user = (User)httpSession.getAttribute("user");
+		if(user== null){
+			httpSession.removeAttribute("user");
+    		model.addAttribute("tip","请登录!");
+    		return "phone/login";
+		}
 		httpSession.setAttribute("index",1);
 		httpSession.setAttribute("rightcout",0);
 		httpSession.setAttribute("errorcout",0);
@@ -63,18 +108,27 @@ public class PhoneController {
 		return "phone/remember";
 	}
 	@RequestMapping("remember/{id}")
-	public String remember(Model model,@PathVariable Long id,String a,HttpSession httpSession) {
-		
+	public String remember(Model model,@PathVariable Long id,String q,HttpSession httpSession) {
+		User user = (User)httpSession.getAttribute("user");
+		if(user== null){
+			httpSession.removeAttribute("user");
+    		model.addAttribute("tip","请登录!");
+    		return "phone/login";
+		}
 		Integer rightcout = (Integer)httpSession.getAttribute("rightcout");
 		Integer errorcout = (Integer)httpSession.getAttribute("errorcout");
 		Integer index = (Integer)httpSession.getAttribute("index");
 		httpSession.setAttribute("index", index+1);
 		Question question = wordService.getQuestion(id);
-		if(a.equals(question.getRightq())){
-			httpSession.setAttribute("index", rightcout+1);
+		if(StringUtils.isEmpty(q)){
+		    return "redirect:/phone/remember"; 
+		}
+		if(q.equals(question.getRightq())){
+			httpSession.setAttribute("rightcout", rightcout+1);
 		}else{
 			httpSession.setAttribute("errorcout", errorcout+1);
 		}
+		model.addAttribute("question", wordService.getQuestion());
 		return "phone/remember";
 	}
 	/***
@@ -88,7 +142,29 @@ public class PhoneController {
 		httpSession.setAttribute("user", userService.find(1l));
 		return "phone/review";
 	}
-	
+	@RequestMapping("review/{num}")
+	public String review(Model model,HttpSession httpSession,@PathVariable Integer num) {
+		User user = (User)httpSession.getAttribute("user");
+		if(user== null){
+			httpSession.removeAttribute("user");
+    		model.addAttribute("tip","请登录!");
+    		return "phone/login";
+		}
+		
+		List<Review> reviews = this.reviewWordService.findByUser(user);
+		if(!CollectionUtils.isEmpty(reviews)&&num<reviews.size()){
+			model.addAttribute("reviews",reviews.get(num));
+		}else if(!CollectionUtils.isEmpty(reviews)&&num>=reviews.size()){
+			num =0;
+			model.addAttribute("reviews",reviews.get(num));
+		}
+		else{
+			model.addAttribute("reviews",null);
+		}
+		model.addAttribute("num",num);
+		model.addAttribute("total",reviews.size());
+		return "phone/review";
+	}
 	/***
 	 * 翻译模块
 	 * @param model

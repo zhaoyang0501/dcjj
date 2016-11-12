@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.time.DateUtils;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 /***
  *用户实体
@@ -28,7 +30,30 @@ public class User implements Serializable {
 	private String email;
 	private String address;
 	private String tel;
+	private Integer day=10;
+	private Integer num=20;
 	
+	private Date endDate;
+	
+	
+	public Integer getDay() {
+		return day;
+	}
+	public void setDay(Integer day) {
+		this.day = day;
+	}
+	public Integer getNum() {
+		return num;
+	}
+	public void setNum(Integer num) {
+		this.num = num;
+	}
+	public Date getEndDate() {
+		return DateUtils.addDays(new Date(), this.getDay());
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 	public Date getBirthDate() {
 		return birthDate;
 	}

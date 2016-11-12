@@ -22,14 +22,13 @@
     <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
   </head>
   <body>
- <form action="dologin" method="post">
   <div class="page-group">
       <div class="page">
        <%@include file="./header.jsp" %>
         
         <div class="content">
    
-     <div class="content-block-title">第一题（总共20题）请选择 <span style="color: blue;"> ${question.title }</span>单词的正确翻译</div>
+     <div class="content-block-title">请选择 <span style="color: blue;"> ${question.title }</span>单词的正确翻译</div>
   <div class="list-block">
     <ul>
       <li class="item-content item-link" onclick="fun_setanswer('a')">
@@ -64,23 +63,34 @@
     
   </div>
    <div class="content-block">
+   <form method="post" action="${pageContext.request.contextPath}/phone/remember/${question.id }">
       <p><a href="javascript:void(0)" onclick="fun_submit()" class="button button-fill button-success">继续做题</a></p>
+   <input type="hidden" name="q"/>
+   </form>
     </div>
     
-    <div class="content-block-title">正确:<span style="color:blue;"> 3   </span>需要复习:<span style="color: red;"> 1</span></div>
+    <div class="content-block-title">正确:<span style="color:blue;"> ${sessionScope.rightcout }   </span>需要复习:<span style="color: red;">  ${sessionScope.errorcout } </span></div>
  
   
 </div>
          </div>
       </div>
   </div>
-  </form>
      <script>
      
      function fun_setanswer(q){
-    	 alert(q);
+    	 if(q=='${question.rightq}')
+    		 $.toast("恭喜，回答正确!");
+    	 else
+    		 $.toast("回答错误，加油哦!");
+    	 $("input[name='q']").val(q);
      }
      function fun_submit(){
+    	 if( $("input[name='q']").val()==''){
+    		 $.toast("还没有选择答案呢!");
+    	 	return ;
+    	 }
+    		 
     	 $("form").submit();
      }
      $(function() {

@@ -22,57 +22,57 @@
     <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
   </head>
   <body>
- <form action="${pageContext.request.contextPath}/phone/review/${num+1}" method="post">
+ <form action="${pageContext.request.contextPath}/phone/saveplan" method="post">
   <div class="page-group">
       <div class="page">
        <%@include file="./header.jsp" %>
-        <div class="content">
-     <div class="content-block-title">第${num+1 }题（总共${total }题）<span style="color: blue;"> ${reviews.question.title }</span>单词的正确翻译</div>
-  <div class="list-block">
-    <ul>
-      <li class="item-content item-link">
-          <div class="item-media"><i class="icon ${reviews.question.rightq=='a' ?"icon-check":""}"></i></div>
         
-        <div class="item-inner">
-          <div class="item-title">A${reviews.question.a }</div>
-        </div>
-      </li>
-      
-       <li class="item-content item-link">
-        <div class="item-media"><i class="icon ${reviews.question.rightq=='b' ?"icon-check":""}"></i></div>
-        <div class="item-inner">
-          <div class="item-title">B${reviews.question.b }</div>
-        </div>
-      </li>
-      
-      
-       <li class="item-content item-link">
-        <div class="item-media"><i class="icon ${reviews.question.rightq=='c' ?"icon-check":""}"></i></div>
-        <div class="item-inner">
-          <div class="item-title">C${reviews.question.c }</div>
-        </div>
-      </li>
-      
-       <li class="item-content item-link">
-        <div class="item-media"><i class="icon ${reviews.question.rightq=='d' ?"icon-check":""}"></i></div>
-        <div class="item-inner">
-          <div class="item-title">D${reviews.question.d }</div>
-        </div>
-      </li>
-    </ul>
-    
-  </div>
-   <div class="content-block">
-      <p><a href="javascript:void(0)" onclick="fun_submit()" class="button button-fill button-success">下一题</a></p>
+      <div class="content native-scroll">
+    <div class="content-block-title">每天背单词个数</div>
+    <div class="content-block">
+      <div class="list-block">
+        <ul>
+          <!-- Text inputs -->
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">个数</div>
+                <div class="item-input">
+                  <input type="text" placeholder="选择"  name='num' value="${sessionScope.user.num}" >
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-    
+    <div class="content-block-title">计划完成天数</div>
+    <div class="content-block">
+      <div class="list-block">
+        <ul>
+         <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">天数</div>
+                <div class="item-input">
+                  <input type="text" placeholder="天数" name='day' value="${sessionScope.user.day}" >
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="content-block-title"><h3>当前计划：<fmt:formatDate pattern="yyyy年MM月dd日" value="${sessionScope.user.endDate }"/> 月完成（共${sessionScope.user.day }天 ${sessionScope.user.day *sessionScope.user.num}个单词）</h3></div>
+       <div class="content-block">
+      <p><a href="javascript:void(0)" onclick="fun_submit()" class="button button-fill button-success">设置完成</a></p>
+    </div>
+  </div>
  
-  
-</div>
-         </div>
       </div>
   </div>
   </form>
+
      <script>
      function fun_submit(){
     	 $("form").submit();
