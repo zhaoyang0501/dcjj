@@ -173,6 +173,15 @@ public class PhoneController {
 		if(q.equals(question.getRightq())){
 			httpSession.setAttribute("rightcout", rightcout+1);
 		}else{
+			Review review = new Review();
+			review.setQuestion(question);
+			review.setUser(user);
+			try {
+				reviewWordService.save(review);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			httpSession.setAttribute("errorcout", errorcout+1);
 		}
 		model.addAttribute("question", wordService.getQuestion());

@@ -17,4 +17,8 @@ public class ReviewWordService {
 	public List<Review> findByUser(User user){
 		return this.reviewRepository.findByUser(user);
 	}
+	
+	public void save(Review review){
+		this.reviewRepository.save(review);
+	}
 }
