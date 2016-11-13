@@ -51,13 +51,16 @@ function fun_goto(gotourl){
 			       <li class="item-content item-link">
 			        <div class="item-media"><i class="icon icon-f7"></i></div>
 			        <div class="item-inner">
-			          <div class="item-title">${sessionScope.user.username }</div>
+			          <div class="item-title">姓名：${sessionScope.user.username }</div>
+			                 <div class="item-after"><a class="external"  href="${pageContext.request.contextPath}/phone/resetinfo"> 修改</a></div>
 			        </div>
 			      </li>
 			      <li class="item-content item-link">
 			        <div class="item-media"><i class="icon icon-f7"></i></div>
 			        <div class="item-inner">
-			          <div class="item-title">${sessionScope.user.tel }</div>
+			          <div class="item-title">电话：${sessionScope.user.tel }</div>
+			                 <div class="item-after"><a class="external"  href="${pageContext.request.contextPath}/phone/resetinfo"> 修改</a></div>
+			
 			        </div>
 			      </li>
 			      
@@ -65,12 +68,12 @@ function fun_goto(gotourl){
 			        <div class="item-media"><i class="icon icon-f7"></i></div>
 			        <div class="item-inner">
 			          <div class="item-title">登录密码</div>
-			          <div class="item-after"><a href="#"> 修改</a></div>
+			          <div class="item-after"><a  class="external" href="${pageContext.request.contextPath}/phone/resetpw"> 修改</a></div>
 			        </div>
 			      </li>
 			    </ul>
 			     <div class="content-block">
-			      <p><a href="javascript:void(0)" onclick="fun_submit()" class="button button-fill button-danger">退出当前账户</a></p>
+			      <p><a href="${pageContext.request.contextPath}/phone/loginout"  class="button button-fill button-danger">退出当前账户</a></p>
 			    </div>
 			  </div>
 		</div>

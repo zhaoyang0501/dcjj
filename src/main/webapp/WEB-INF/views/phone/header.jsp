@@ -26,6 +26,11 @@
                   <span class="icon icon-search"></span>
                   <span class="tab-label">单词查询</span>
               </a>
+               <a class="tab-item external"href="${pageContext.request.contextPath}/phone/test">
+                  <span class="icon   icon-menu"></span>
+                  <span class="tab-label">用户评测</span>
+              </a>
+              
               <a class="tab-item external" href="${pageContext.request.contextPath}/phone/center">
                   <span class="icon icon-me"></span>
                   <span class="tab-label">个人中心</span>

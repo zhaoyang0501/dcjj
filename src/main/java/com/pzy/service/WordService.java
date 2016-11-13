@@ -32,6 +32,13 @@ public class WordService {
 		Collections.shuffle(list);
 		return list.get(0);
 	}
+	
+	public List<Question> findTest(){
+		List<Question> list = (List<Question>) questionRepository.findAll();
+		Collections.shuffle(list);
+		return list.subList(0, 10);
+	}
+	
 	public Question getQuestion(Long id){
 		return  questionRepository.findOne(id);
 	}

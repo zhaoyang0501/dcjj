@@ -107,6 +107,53 @@ public class PhoneController {
 		model.addAttribute("question", wordService.getQuestion());
 		return "phone/remember";
 	}
+	
+	@RequestMapping("test")
+	public String test(Model model,HttpSession httpSession) {
+		User user = (User)httpSession.getAttribute("user");
+		if(user== null){
+			httpSession.removeAttribute("user");
+    		model.addAttribute("tip","请登录!");
+    		return "phone/login";
+		}
+		
+		List<Question > questions = wordService.findTest();
+		httpSession.setAttribute("index",0);
+		httpSession.setAttribute("rightcout",0);
+		httpSession.setAttribute("errorcout",0);
+		model.addAttribute("question", questions.get(0));
+		httpSession.setAttribute("questions",questions);
+		return "phone/test";
+	}
+	@RequestMapping("test/{index}")
+	public String test(Model model,@PathVariable Integer index,String q,HttpSession httpSession) {
+		User user = (User)httpSession.getAttribute("user");
+		if(user== null){
+			httpSession.removeAttribute("user");
+    		model.addAttribute("tip","请登录!");
+    		return "phone/login";
+		}
+		Integer rightcout = (Integer)httpSession.getAttribute("rightcout");
+		Integer errorcout = (Integer)httpSession.getAttribute("errorcout");
+		httpSession.setAttribute("index", index);
+		List<Question > questions = (List<Question >)httpSession.getAttribute("questions");
+		Question prequestion =questions.get(index-1);
+		if(StringUtils.isEmpty(q)){
+		    return "redirect:/phone/test"; 
+		}
+		if(q.equals(prequestion.getRightq())){
+			httpSession.setAttribute("rightcout", rightcout+1);
+		}else{
+			httpSession.setAttribute("errorcout", errorcout+1);
+		}
+		
+		if(index==questions.size()){
+			return "phone/result";
+		}
+		Question question =questions.get(index);
+		model.addAttribute("question", question);
+		return "phone/test";
+	}
 	@RequestMapping("remember/{id}")
 	public String remember(Model model,@PathVariable Long id,String q,HttpSession httpSession) {
 		User user = (User)httpSession.getAttribute("user");
@@ -209,6 +256,61 @@ public class PhoneController {
 		return "phone/center";
 		
 	}
+	
+	@RequestMapping("resetpw")
+	public String resetpw(Model model,HttpSession httpSession) {
+		User user=(User) httpSession.getAttribute("user");
+		if(user==null){
+			model.addAttribute("tip","请登陆！");
+			return "phone/login";
+		}
+		model.addAttribute("user",user);
+		return "phone/pw";
+	}
+	
+	@RequestMapping("resetinfo")
+	public String resetinfo(Model model,HttpSession httpSession) {
+		User user=(User) httpSession.getAttribute("user");
+		if(user==null){
+			model.addAttribute("tip","请登陆！");
+			return "phone/resetinfo";
+		}
+		model.addAttribute("user",user);
+		return "phone/resetinfo";
+	}
+	
+	@RequestMapping("doresetinfo")
+	public String doresetinfo(Model model,HttpSession httpSession,User user) {
+		User user1=(User) httpSession.getAttribute("user");
+		if(user1==null){
+			model.addAttribute("tip","请登陆！");
+			return "phone/resetinfo";
+		}
+		user1.setAddress(user.getAddress());
+		user1.setUsername(user.getUsername());
+		user1.setEmail(user.getEmail());
+		userService.save(user1);
+		model.addAttribute("tip","个人资料修改成功！");
+		model.addAttribute("user",user1);
+		return "phone/resetinfo";
+		
+	}
+	
+	@RequestMapping("doresetpw")
+	public String doresetpw(Model model,HttpSession httpSession,String password) {
+		User user=(User) httpSession.getAttribute("user");
+		if(user==null){
+			model.addAttribute("tip","请登陆！");
+			return "phone/login";
+		}
+		user.setPassword(password);
+		userService.save(user);
+		model.addAttribute("tip","密码修改成功！");
+		model.addAttribute("user",user);
+		return "phone/pw";
+		
+	}
+	
 	/***
 	 * 退出
 	 * @param httpSession
